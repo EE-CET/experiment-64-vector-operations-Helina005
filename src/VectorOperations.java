@@ -1,48 +1,58 @@
-import java.util.Scanner;
 import java.util.Vector;
+import java.util.Scanner;
 
-public class VectorOperations {
+public class VectorOperations { // Ensure this matches your filename
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         Vector<String> students = new Vector<>();
-        
-        while (scanner.hasNextInt()) {
-            int choice = scanner.nextInt();
+        Scanner sc = new Scanner(System.in);
+
+        // Keep running as long as there is input
+        while (sc.hasNext()) {
+            String input = sc.next();
+            int choice;
             
-            if (choice == 5) {
-                break;
+            // Safety check to ensure the input is actually a number
+            try {
+                choice = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                continue; 
             }
-            
+
+            if (choice == 5) break;
+
             switch (choice) {
-                case 1:
-                    // TODO: Read the name and add it to the vector
-                    // Print "Added"
-                    
+                case 1: // Add
+                    if (sc.hasNext()) {
+                        students.add(sc.next());
+                        System.out.println("Added");
+                    }
                     break;
-                    
-                case 2:
-                    // TODO: Read the name and the 1-based index
-                    // Insert the name at the correct 0-based index in the vector
-                    // Print "Inserted"
-                    
+
+                case 2: // Insert (Name then Index)
+                    if (sc.hasNext()) {
+                        String name = sc.next();
+                        int idx = sc.nextInt();
+                        // 1-based to 0-based conversion
+                        students.add(idx - 1, name);
+                        System.out.println("Inserted");
+                    }
                     break;
-                    
-                case 3:
-                    // TODO: Read the name and remove it from the vector
-                    // Print "Removed"
-                    
+
+                case 3: // Remove
+                    if (sc.hasNext()) {
+                        String nameToRemove = sc.next();
+                        // .remove(Object) returns true if the element existed and was removed
+                        if (students.remove(nameToRemove)) {
+                            System.out.println("Removed");
+                        }
+                    }
                     break;
-                    
-                case 4:
-                    // TODO: Display the vector
-                    
+
+                case 4: // Display
+                    System.out.println(students);
                     break;
-                    
-                default:
-                    System.out.println("Invalid choice");
             }
         }
-        
-        scanner.close();
+        sc.close();
     }
 }
